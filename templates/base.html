@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask ToDo App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>CollabTask</h1>
+        <span><b>- An Effective Project Management App -</b></span>
+        {% if session.get('username') %}
+        <div class="welcome">
+            <p>Welcome, {{ session['username'] }}!</p>
+            <a href="/logout">Logout</a>
+        </div>
+        {% endif %}
+    </header>
+    
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <p>DBMS Project, BTech ECE Final Year GSV</p>
+    </footer>
+</body>
+</html>

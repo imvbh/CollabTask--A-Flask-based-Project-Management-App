@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<section>
+    <h2>Update Task</h2>
+    <form action="/update/{{ task.id }}" method="POST" class="task-form">
+        <input type="text" name="title" value="{{ task.title }}" required class="input1">
+        <input type="date" name="date" value="{{ task.date }}" required class="input2">
+        <input type="text" name="assigned_to" value="{{ task.assigned_to }}" class="input1">
+        <input type="text" name="assigned_by" value="{{ task.assigned_by }}" class="input1">
+        <button type="submit" class="master-button">Update Task</button>
+    </form>
+</section>
+{% endblock %}

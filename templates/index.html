@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+<section>
+    <!-- Form to add a new task -->
+    <form action="/add" method="POST" class="task-form">
+        <input type="text" name="title" placeholder="Task Title" required class="input1">
+        <input type="date" name="date" required class="input2">
+        <input type="text" name="assigned_to" placeholder="Assigned To" class="assigned_to">
+        <button type="submit" class="master-button">Add Task</button>
+    </form>
+
+    <!-- Table for tasks assigned to the user -->
+    <h2>Tasks Assigned <u>To You</u></h2>
+    <table class="assigned_to_you_table">
+        <thead>
+            <tr>
+                <th><a href="?sort=date">Date <img src="{{ url_for('static', filename='sorting.png') }}" alt=""></a>
+                </th>
+                <th><a href="?sort=title">Title <img src="{{ url_for('static', filename='sorting.png') }}" alt=""></a>
+                </th>
+                <th>Assigned By</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks_assigned_to %}
+            <tr>
+                <td>{{ task.date }}</td>
+                <td>{{ task.title }}</td>
+                <td>{{ task.assigned_by }}</td>
+                <td>{{ task.status }}</td>
+                <td>
+                    <a href="/mark_in_progress/{{ task.id }}">In Progress</a>
+                    <a href="/mark_done/{{ task.id }}">Done</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Table for tasks assigned by the user -->
+    <h2>Tasks Assigned <u>By You</u></h2>
+    <table>
+        <thead>
+            <tr>
+                <th><a href="?sort=date">Date <img src="{{ url_for('static', filename='sorting.png') }}" alt=""></a>
+                </th>
+                <th><a href="?sort=title">Title <img src="{{ url_for('static', filename='sorting.png') }}" alt=""></a>
+                </th>
+                <th>Assigned To</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks_assigned_by %}
+            <tr>
+                <td>{{ task.date }}</td>
+                <td>{{ task.title }}</td>
+                <td>{{ task.assigned_to }}</td>
+                <td>{{ task.status }}</td>
+                <td>
+                    <a href="/update/{{ task.id }}"><img src="{{ url_for('static', filename='edit.png') }}" alt=""></a>
+                    <a href="/delete/{{ task.id }}" onclick="return confirm('Delete this task?')"><img
+                            src="{{ url_for('static', filename='delete.png') }}" alt=""></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}
